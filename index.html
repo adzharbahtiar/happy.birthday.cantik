@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 19th Birthday Shafira 💖🐄</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Pacifico&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Cute Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: radial-gradient(circle, #fff5f7 0%, #ffe4ec 100%);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        .font-pacifico {
+            font-family: 'Pacifico', cursive;
+        }
+        .font-caveat {
+            font-family: 'Caveat', cursive;
+        }
+        
+        /* Floating background items */
+        .floating-item {
+            position: fixed;
+            bottom: -10vh;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp linear forwards;
+            opacity: 0.6;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.7; }
+            85% { opacity: 0.7; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Glassmorphism panels */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 182, 193, 0.4);
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.15);
+        }
+
+        /* Heartbeat animations */
+        .heartbeat {
+            animation: beat 1.4s infinite ease-in-out;
+        }
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        /* Soft wiggle for cute cows */
+        .wiggle {
+            animation: wiggle 3s infinite ease-in-out;
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* Special text-reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffe4ec;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffb6c1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff69b4;
+        }
+
+        /* Flower Bloom animation for intro */
+        .flower-bloom {
+            animation: bloom 1.5s forwards ease-out;
+        }
+        @keyframes bloom {
+            0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="text-pink-800 relative min-h-screen selection:bg-pink-300 selection:text-pink-900">
+
+    <!-- Sparkle/Click Effect Canvas -->
+    <canvas id="sparkle-canvas" class="fixed inset-0 pointer-events-none z-[99]"></canvas>
+
+    <!-- WADAH BACKGROUND ANIMASI -->
+    <div id="particles-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+    <!-- SCREEN 1: HALAMAN INTRO ENVELOPE DENGAN BUNGA MEKAR -->
+    <div id="intro" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-b from-pink-100 to-pink-200 transition-all duration-1000 px-4 text-center">
+        <!-- Floating blossoms in intro -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden" id="intro-blossoms"></div>
+
+        <div class="glass-panel p-8 rounded-3xl max-w-lg w-full relative z-10 flex flex-col items-center shadow-2xl transition-all duration-500 hover:scale-[1.02]">
+            <!-- Decorative Flower Vines -->
+            <div class="flex gap-4 justify-center mb-2 text-2xl text-pink-400">
+                <span class="flower-bloom delay-100">🌸</span>
+                <span class="flower-bloom delay-300">🌷</span>
+                <span class="flower-bloom delay-500">🌺</span>
+                <span class="flower-bloom delay-700">🌷</span>
+                <span class="flower-bloom delay-900">🌸</span>
+            </div>
+
+            <h1 class="font-pacifico text-3xl md:text-4xl text-pink-500 mb-2 heartbeat">Halo Semestaku... ✨</h1>
+            <p class="text-md text-pink-700 mb-6 font-medium">Kaza punya hadiah istimewa buat Sapi kesayangan Kaza.</p>
+            
+            <!-- Envelope Box Interaction -->
+            <div id="letter-container" class="relative w-64 h-48 bg-pink-300 rounded-b-xl shadow-lg my-6 cursor-pointer group transition-transform hover:scale-105" onclick="openGift()">
+                <!-- Front Triangles representing letter flap -->
+                <div class="absolute inset-0 bg-pink-400 rounded-b-xl z-10"></div>
+                <!-- Flap -->
+                <div id="envelope-flap" class="absolute top-0 left-0 right-0 h-24 bg-pink-400 origin-top transition-transform duration-500 z-20 rounded-t-xl" style="clip-path: polygon(0 0, 50% 100%, 100% 0);"></div>
+                
+                <!-- Inside Letter preview -->
+                <div class="absolute bottom-2 left-4 right-4 h-36 bg-white rounded-t-lg shadow-inner flex flex-col items-center justify-center p-2 z-0 transform translate-y-2 group-hover:translate-y-0 transition-all">
+                    <p class="font-caveat text-xl text-pink-600 font-bold">Tekan untuk Membuka 💌</p>
+                    <span class="text-3xl wiggle mt-2">🐄</span>
+                </div>
+            </div>
+            
+            <button onclick="openGift()" class="bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white font-bold py-3.5 px-10 rounded-full shadow-lg hover:shadow-pink-300/50 transition-all hover:scale-105 active:scale-95 flex items-center gap-3">
+                <i class="fa-solid fa-envelope-open-heart heartbeat"></i>
+                <span>Buka Surat dari Kaza</span> 
+            </button>
+            <p class="text-xs text-pink-400 mt-4">(Pencet amplop atau tombol di atas ya, Sapi 💖)</p>
+        </div>
+
+        <!-- Cute Cow peeking at bottom corner -->
+        <div class="absolute bottom-0 left-4 text-7xl transform rotate-12 wiggle select-none pointer-events-none">🐄🌸</div>
+        <div class="absolute bottom-0 right-4 text-7xl transform -rotate-12 wiggle select-none pointer-events-none">🌷🐄</div>
+    </div>
+
+
+    <!-- MAIN CONTENT (HIDDEN INITIALLY) -->
+    <div id="main-content" class="relative z-10 max-w-2xl mx-auto px-4 py-8 flex flex-col items-center" style="display: none;">
+        
+        <!-- SPOTIFY EMBED INSTEAD OF THE COMPLEX HTML PLAYER -->
+        <div class="w-full text-center mb-8 reveal active">
+            <div class="glass-panel p-4 rounded-3xl shadow-md border-2 border-pink-200">
+                <span class="text-xs font-bold uppercase tracking-wider text-pink-500 bg-pink-100 px-3 py-1 rounded-full inline-block mb-2">Lagu Kesayangan Sapi 🎧</span>
+                <p class="text-xs text-pink-700 font-medium mb-3">Sapi, mohon tekan putar (play) lagunya dulu ya biar membaca lembaran ini jadi lebih terasa syahdu 🤍</p>
+                <iframe style="border-radius:18px" src="https://open.spotify.com/embed/track/2x3vwXWuecPrRqgEUuSUJA?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </div>
+
+
+        <!-- BAGIAN 1: SELAMAT ULANG TAHUN -->
+        <section class="min-h-[80vh] flex flex-col items-center justify-center text-center w-full mb-16 reveal active">
+            <h2 class="font-pacifico text-4xl md:text-5xl text-pink-500 mb-3 drop-shadow">Happy 19th Birthday!</h2>
+            <h1 class="text-2xl md:text-3xl font-bold text-pink-600 mb-6 uppercase tracking-widest bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">Shafira Mustika Harda Saputri</h1>
+            
+            <!-- COLOURED EMBELLISHMENT REPLACING THE PHOTO -->
+            <div class="relative w-52 h-52 md:w-64 md:h-64 rounded-full overflow-hidden border-8 border-white shadow-2xl mx-auto mb-8 transition-transform hover:scale-105 duration-300 bg-gradient-to-tr from-pink-300 via-rose-200 to-pink-100 flex flex-col items-center justify-center text-white">
+                <span class="text-7xl mb-2 wiggle">🐄👑</span>
+                <span class="font-pacifico text-pink-600 text-xl font-bold">Sapi Cantik-ku</span>
+                <div class="absolute bottom-2 right-8 bg-white text-pink-500 py-1 px-3 rounded-full text-xs font-bold shadow-md flex items-center gap-1">
+                    <span>Semestaku</span> 💕
+                </div>
+            </div>
+            
+            <p class="text-lg md:text-xl text-pink-700 leading-relaxed bg-white/70 p-6 rounded-2xl shadow-sm border border-pink-100 max-w-xl mx-auto">
+                Selamat bertambah usia, <span class="font-bold text-pink-500">Sapi-ku yang paling lucu, paling manis, dan tercantik di semesta</span> 🐄💖.<br>
+                Hari ini, dunia bersinar jauh lebih terang karena merayakan kelahiran sesosok perempuan yang luar biasa indah.
+            </p>
+            
+            <div class="animate-bounce mt-10 text-pink-400 text-3xl">
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </section>
+
+
+        <!-- BAGIAN 1.5: THE HEARTFELT CONFESSION -->
+        <section class="min-h-[80vh] flex flex-col items-center justify-center text-center w-full mb-16 reveal">
+            <div class="w-full bg-white/95 rounded-3xl p-6 md:p-8 shadow-2xl border-2 border-pink-300 relative overflow-hidden">
+                <!-- Watermark Background -->
+                <div class="absolute -right-12 -top-12 text-[12rem] text-pink-100/40 select-none pointer-events-none font-pacifico rotate-12">Love</div>
+                <div class="absolute -left-12 -bottom-12 text-9xl text-pink-100/40 select-none pointer-events-none rotate-45">🐄</div>
+
+                <div class="text-center mb-6">
+                    <span class="text-4xl text-rose-400 heartbeat inline-block mb-2">💌</span>
+                    <h2 class="font-pacifico text-3xl text-pink-600">Surat dari Lubuk Hati Kaza</h2>
+                    <div class="w-24 h-1 bg-pink-300 mx-auto mt-2 rounded-full"></div>
+                </div>
+
+                <div class="text-pink-900 leading-relaxed text-justify space-y-4 font-medium md:text-lg">
+                    <p class="font-pacifico text-xl text-left text-pink-500">HALLO HALLO HALLO PEREMPUAN CANTIK, halo sayanggg, halo halo. kazaa ada pesan buat kamu...</p>
+                    <p>
+                        Hari ini hari spesialmu, jadi Kaza mau fokus buat ngasih selamat, ngasih semangat yang luar biasa banyak, dan doain semua hal-hal baik buat kamu. Kaza selalu berharap semoga kamu tetap menjadi Shafira yang Kaza kenal. Shafira yang baik hati, tidak sombong, dan Shafira yang luar biasa keren. Shafira yang luar biasa cantik, luar biasa indah, dan luar biasa hebat dalam ngadepin apa pun.
+                    </p>
+                    <p>
+                        Kaza tahu perjalanan kamu ke depan pasti punya tantangannya sendiri, tapi Kaza mau kamu tahu kalau kamu itu perempuan yang kuat banget. Kamu harus selalu semangat ya, Sapi! Jangan pernah ragu sama kemampuan dirimu sendiri, karena di mata Kaza, kamu tuh selalu bisa ngelewatin hal-hal sulit dengan cara kamu yang luar biasa hebat. Kalau nanti kamu merasa capek atau butuh asupan semangat tambahan, inget ya kalau Kaza bakal selalu ada di garda terdepan buat semangatin kamu.
+                    </p>
+                    <p class="border-l-4 border-pink-400 pl-4 italic text-pink-800 bg-pink-50/50 py-2 rounded-r-lg">
+                        Di umurmu yang baru ini, Kaza doain sangat amat banyak hal baik buat kamu. Semoga kamu selalu diberikan kesehatan, dilancarkan semua urusan dan impianmu, digampangkan jalan belajarnya, dan didekatkan dengan orang-orang yang sayang sama kamu. Kaza juga berdoa semoga senyuman indahmu itu nggak pernah pudar dan kamu selalu bahagia setiap harinya. Pokoknya, semesta harus baik banget sama kamu!
+                    </p>
+                    <p>
+                        Kaza sangat amat senang bisa melihat kamu bertambah usia hari ini, Kaza sangat amat senang bisa ada di depanmu, dan Kaza sangat amat senang bisa mendengarkan cerita-ceritamu lagi. Makasih ya udah selalu kuat dan hebat sampai hari ini.
+                    </p>
+                    <p class="text-center font-semibold text-pink-600 text-lg md:text-xl">
+                        Kaza sangat amat sayang sama Sapi.<br>
+                        Kaza sangat amat peduli sama kamu, dan ya... Kaza rasa, Sapi udah sangat amat paham soal hal itu.
+                    </p>
+                    <p class="text-center font-pacifico text-2xl md:text-3xl text-rose-500 pt-2 heartbeat">
+                        Selamat ulang tahun, Selamat ulang tahun untuk cantikku, sayangku, dan semestaku. Semoga tahun ini jadi tahun yang luar biasa indah buat kamu! 💖
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- BAGIAN 2: TIMELINE PERJALANAN 3 TAHUN KITA (DIPERPANJANG!) -->
+        <section class="min-h-screen flex flex-col items-center justify-center text-center w-full mb-16 reveal">
+            <h2 class="font-pacifico text-3xl text-pink-500 mb-2">3 Tahun Cerita Kita 📖</h2>
+            <p class="text-sm text-pink-600 mb-8 max-w-md mx-auto font-medium">Banyak sekali cerita, tawa, air mata, dan perjuangan manis yang Kaza & Sapi lalui bersama. Klik setiap momen untuk mengingatnya!</p>
+
+            <div class="relative border-l-4 border-pink-300 ml-4 md:ml-0 text-left w-full space-y-8 pl-6 md:pl-12">
+                
+                <!-- Timeline Item 1 -->
+                <div class="relative transition-all duration-300 hover:translate-x-2 group">
+                    <span class="absolute -left-11 md:-left-18 bg-pink-400 text-white w-9 h-9 rounded-full flex items-center justify-center text-sm shadow font-bold">1</span>
+                    <div class="glass-panel p-5 rounded-2xl shadow-sm border border-pink-100 bg-white/80">
+                        <span class="text-xs font-bold text-pink-500 block mb-1">JANUARI 2023 • MOMEN AWAL KITA 🏀</span>
+                        <h4 class="font-bold text-pink-700 text-lg flex items-center gap-2">Pertemuan Pertama di Lapangan DPR</h4>
+                        <p class="text-sm text-pink-800 mt-2 leading-relaxed">
+                            Kaza inget banget, ini adalah momen lucu sekaligus seru! Kita pertama kali ketemu di lapangan DPR pas lagi basketan. Kaza sering banget kepikiran momen itu tiap kali lewat atau pergi ke sana. Lapangan itu saksi bisu tempat Kaza sama Sapi dulu pertama ketemu dan bisa ngobrol lama banget di sana.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative transition-all duration-300 hover:translate-x-2 group">
+                    <span class="absolute -left-11 md:-left-18 bg-pink-400 text-white w-9 h-9 rounded-full flex items-center justify-center text-sm shadow font-bold">2</span>
+                    <div class="glass-panel p-5 rounded-2xl shadow-sm border border-pink-100 bg-white/80">
+                        <span class="text-xs font-bold text-pink-500 block mb-1">AWAL TAHUN 2023 • DEKAT PERLAHAN 💬</span>
+                        <h4 class="font-bold text-pink-700 text-lg">Sering Ngobrol & Chattingan</h4>
+                        <p class="text-sm text-pink-800 mt-2 leading-relaxed">
+                            Siapa sangka dari awal ketemu yang tidak sengaja itu, kita jadi sering banget ketemu, ngobrol panjang lebar, dan chattingan setiap hari. Meskipun waktu itu Kaza sudah mulai dekat sama Sapi, tapi Sapi sendiri sempat suka sama orang lain di kala itu. Namun, semesta tampaknya punya cara lain untuk kita...
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="relative transition-all duration-300 hover:translate-x-2 group">
+                    <span class="absolute -left-11 md:-left-18 bg-pink-500 text-white w-9 h-9 rounded-full flex items-center justify-center text-sm shadow font-bold heartbeat">3</span>
+                    <div class="glass-panel p-5 rounded-2xl shadow-md border-2 border-pink-400 bg-pink-50/20">
+                        <span class="text-xs font-bold text-rose-500 block mb-1">14 JUNI 2023 • MOMEN TERINDAH 💕</span>
+                        <h4 class="font-bold text-pink-800 text-lg">Hari Kita Pacaran</h4>
+                        <p class="text-sm text-pink-900 mt-2 leading-relaxed font-medium">
+                            Hari di mana kita resmi pacaran! Rasanya aneh tapi manis banget, karena jujur nggak ada yang menyangka kalau kita bakal pacaran waktu itu. Kaza pun di kala itu sempat nggak percaya. Dan hal yang paling bikin Kaza takjub adalah... bagaimana ceritanya Kaza bisa sesayang dan secinta ini sama Sapi dari saat itu hingga sekarang.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="relative transition-all duration-300 hover:translate-x-2 group">
+                    <span class="absolute -left-11 md:-left-18 bg-pink-400 text-white w-9 h-9 rounded-full flex items-center justify-center text-sm shadow font-bold">4</span>
+                    <div class="glass-panel p-5 rounded-2xl shadow-sm border border-pink-100 bg-white/80">
+                        <span class="text-xs font-bold text-pink-500 block mb-1">1.5 TAHUN BERJALAN • SEGALA RASA 🧸</span>
+                        <h4 class="font-bold text-pink-700 text-lg">Suka & Duka Bersama Sapi</h4>
+                        <p class="text-sm text-pink-800 mt-2 leading-relaxed">
+                            Selama kurang lebih satu setengah tahun, kita menjalani semuanya bersama-sama. Kita melewati masa-masa senang, sedih, marah, sebel-sebelan, dan merajut ribuan tawa. Setiap detiknya bersama Sapi adalah lembaran paling berharga di hidup Kaza.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 5 -->
+                <div class="relative transition-all duration-300 hover:translate-x-2 group">
+                    <span class="absolute -left-11 md:-left-18 bg-pink-400 text-white w-9 h-9 rounded-full flex items-center justify-center text-sm shadow font-bold">5</span>
+                    <div class="glass-panel p-5 rounded-2xl shadow-sm border border-pink-100 bg-white/80">
+                        <span class="text-xs font-bold text-pink-500 block mb-1">21 AGUSTUS 2024 • TITIK TERBERAT 🌧️</span>
+                        <h4 class="font-bold text-pink-700 text-lg">Masa Perpisahan Kita</h4>
+                        <p class="text-sm text-pink-800 mt-2 leading-relaxed">
+                            Hari di mana kita akhirnya berpisah. Perpisahan ini adalah hal yang benar-benar berat, sedih, dan sempat nggak pernah ingin Kaza ingat-ingat lagi. Tapi di balik kesedihan itu, Kaza bersyukur. Momen Sapi meninggalkan Kaza membuat Kaza banyak belajar. Kaza sadar waktu itu Kaza mungkin belum layak, belum sehebat, dan belum seberharga itu buat Sapi. Kaza belajar keras untuk membenahi diri jadi lebih dewasa.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 6 -->
+                <div class="relative transition-all duration-300 hover:translate-x-2 group">
+                    <span class="absolute -left-11 md:-left-18 bg-pink-400 text-white w-9 h-9 rounded-full flex items-center justify-center text-sm shadow font-bold">6</span>
+                    <div class="glass-panel p-5 rounded-2xl shadow-sm border border-pink-100 bg-white/80">
+                        <span class="text-xs font-bold text-pink-500 block mb-1">AKHIR TAHUN 2024 • KEMBALI MENYAPA ✨</span>
+                        <h4 class="font-bold text-pink-700 text-lg">Malam Tahun Baru & Prom Night</h4>
+                        <p class="text-sm text-pink-800 mt-2 leading-relaxed">
+                            Setelah sempat lost contact lama (di mana Sapi nge-chat tapi jarang Kaza balas), di malam tahun baru kita akhirnya chattingan lagi. Kita mendadak dekat banget lagi, couple-an casing HP, bahkan sampai Kaza buatin momen romantis "Prom Night" kecil untuk merayakan Sapi dan memberi hadiah spesial. Kaza harap hadiah itu sangat berarti dan membuat Sapi tersenyum senang waktu itu.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 7 -->
+                <div class="relative transition-all duration-300 hover:translate-x-2 group">
+                    <span class="absolute -left-11 md:-left-18 bg-pink-500 text-white w-9 h-9 rounded-full flex items-center justify-center text-sm shadow font-bold heartbeat">7</span>
+                    <div class="glass-panel p-5 rounded-2xl shadow-md border-2 border-pink-300 bg-pink-50/10 animate-pulse">
+                        <span class="text-xs font-bold text-pink-500 block mb-1">29 APRIL 2026 HINGGA SEKARANG • KEAJAIBAN BARU 🌱</span>
+                        <h4 class="font-bold text-pink-800 text-lg">Saat Sapi Mengajak Bertemu Kembali</h4>
+                        <p class="text-sm text-pink-800 mt-2 leading-relaxed font-semibold">
+                            Siapa sangka, setelah sempat pisah dan lost contact lama di bulan Agustus tahun lalu, pada tanggal 29 April kemarin Sapi mengajak Kaza ketemu. Sekarang sudah berlalu lebih dari satu bulan sejak pertemuan ajaib itu, dan kita bisa dekat lagi. Kaza bersyukur luar biasa dari lubuk hati terdalam bisa dipertemukan kembali dengan Sapi. Terima kasih banyak ya Sapi cantik-ku...
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- BAGIAN 3: INTERACTIVE FLOWER BOUQUET BUILDER -->
+        <section class="min-h-screen flex flex-col items-center justify-center text-center w-full mb-16 reveal">
+            <div class="glass-panel p-6 md:p-8 rounded-3xl w-full relative">
+                <span class="absolute -top-6 -right-6 text-6xl transform rotate-12 wiggle">💐</span>
+                <h2 class="font-pacifico text-3xl text-pink-500 mb-2">Rangkai Buket Bunga Buat Sapi 🌹</h2>
+                <p class="text-sm text-pink-600 mb-6">Pencet bunga-bunga di bawah ini untuk dirangkai menjadi buket cantik spesial dari Kaza!</p>
+
+                <!-- Flower Basket (Available to click) -->
+                <div class="grid grid-cols-5 gap-3 mb-6">
+                    <button onclick="addFlowerToBouquet('🌹', 'Mawar Merah (Kaza selalu jatuh cinta padamu)')" class="bg-white hover:bg-rose-50 border-2 border-rose-200 p-3 rounded-2xl shadow-sm text-3xl hover:scale-110 active:scale-95 transition-all flex flex-col items-center gap-1">
+                        <span>🌹</span>
+                        <span class="text-[9px] text-rose-500 font-bold">Mawar</span>
+                    </button>
+                    <button onclick="addFlowerToBouquet('🌷', 'Tulip Pink (Sapi adalah kebahagiaan Kaza)')" class="bg-white hover:bg-pink-50 border-2 border-pink-200 p-3 rounded-2xl shadow-sm text-3xl hover:scale-110 active:scale-95 transition-all flex flex-col items-center gap-1">
+                        <span>🌷</span>
+                        <span class="text-[9px] text-pink-500 font-bold">Tulip</span>
+                    </button>
+                    <button onclick="addFlowerToBouquet('🌻', 'Bunga Matahari (Sapi selalu mencerahkan hari Kaza)')" class="bg-white hover:bg-amber-50 border-2 border-amber-200 p-3 rounded-2xl shadow-sm text-3xl hover:scale-110 active:scale-95 transition-all flex flex-col items-center gap-1">
+                        <span>🌻</span>
+                        <span class="text-[9px] text-amber-500 font-bold">Matahari</span>
+                    </button>
+                    <button onclick="addFlowerToBouquet('🌸', 'Sakura (Sapi sangat cantik dan berharga)')" class="bg-white hover:bg-rose-50 border-2 border-rose-100 p-3 rounded-2xl shadow-sm text-3xl hover:scale-110 active:scale-95 transition-all flex flex-col items-center gap-1">
+                        <span>🌸</span>
+                        <span class="text-[9px] text-rose-400 font-bold">Sakura</span>
+                    </button>
+                    <button onclick="addFlowerToBouquet('🌼', 'Daisy (Kejujuran dan ketulusan hati kita)')" class="bg-white hover:bg-yellow-50 border-2 border-yellow-100 p-3 rounded-2xl shadow-sm text-3xl hover:scale-110 active:scale-95 transition-all flex flex-col items-center gap-1">
+                        <span>🌼</span>
+                        <span class="text-[9px] text-yellow-600 font-bold">Daisy</span>
+                    </button>
+                </div>
+
+                <!-- Wrapping Canvas Area -->
+                <div class="bg-pink-100/50 rounded-2xl p-6 min-h-[220px] border-2 border-dashed border-pink-300 relative flex flex-col items-center justify-center overflow-hidden">
+                    <!-- Wrapped Bouquet Visual -->
+                    <div id="bouquet-wrapping" class="flex flex-wrap justify-center items-center gap-2 max-w-xs transition-all duration-300">
+                        <!-- Flowers will appear here dynamically -->
+                        <p id="empty-bouquet-msg" class="text-pink-400 text-sm font-medium italic"><i class="fa-solid fa-wand-magic-sparkles"></i> Belum ada bunga. Klik jenis bunga di atas untuk merangkainya!</p>
+                    </div>
+                    
+                    <!-- Paper wrap visual bottom -->
+                    <div id="bouquet-paper" class="hidden text-6xl mt-4 z-10 scale-125 select-none pointer-events-none">💝💐</div>
+                </div>
+
+                <!-- Live Wish Text generated by Flower -->
+                <div id="flower-message" class="mt-4 min-h-[40px] text-pink-700 font-medium italic text-sm text-center px-4"></div>
+
+                <!-- Reset Button -->
+                <div class="flex justify-center gap-3 mt-4">
+                    <button onclick="resetBouquet()" class="text-xs bg-pink-200 hover:bg-pink-300 text-pink-700 font-bold px-4 py-2 rounded-full transition-colors">
+                        <i class="fa-solid fa-rotate-left"></i> Rangkai Ulang
+                    </button>
+                    <button id="send-bouquet-btn" onclick="celebrateBouquet()" class="hidden text-xs bg-pink-500 hover:bg-pink-600 text-white font-bold px-4 py-2 rounded-full transition-all hover:scale-105 active:scale-95 shadow">
+                        <i class="fa-solid fa-heart"></i> Berikan ke Sapi ✨
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- BAGIAN 4: THE ORIGAMI STAR WISH JAR -->
+        <section class="min-h-screen flex flex-col items-center justify-center text-center w-full mb-16 reveal">
+            <div class="glass-panel p-6 md:p-8 rounded-3xl w-full relative overflow-hidden">
+                <h2 class="font-pacifico text-3xl text-pink-500 mb-2">Stoples Bintang Harapan 🌟</h2>
+                <p class="text-sm text-pink-600 mb-6">Pencet stoples untuk mengambil satu origami bintang berisi doa dan harapan tulus Kaza buat Sapi!</p>
+
+                <!-- Jar Visual Representation -->
+                <div id="wish-jar" onclick="openStarWish()" class="relative w-44 h-56 mx-auto cursor-pointer group transition-transform hover:scale-105 active:scale-95 flex items-center justify-center">
+                    <!-- Glass Jar Cover & Lid -->
+                    <div class="absolute inset-0 border-4 border-pink-300 rounded-3xl bg-pink-100/30 shadow-inner z-10 flex flex-wrap content-end justify-center p-4 gap-1.5 overflow-hidden">
+                        <!-- Inside mini stars -->
+                        <span class="text-xl animate-bounce delay-100">⭐️</span>
+                        <span class="text-xl animate-bounce delay-300">⭐</span>
+                        <span class="text-xl animate-bounce delay-500">⭐️</span>
+                        <span class="text-xl animate-bounce delay-200">⭐</span>
+                        <span class="text-xl animate-bounce">⭐️</span>
+                    </div>
+                    <!-- Lid -->
+                    <div class="absolute -top-3 w-28 h-6 bg-pink-400 rounded-lg shadow-md z-20"></div>
+                    <div class="absolute top-2 w-24 h-2 bg-pink-300 z-15"></div>
+
+                    <!-- Hanging tag label -->
+                    <div class="absolute top-16 left-6 bg-white border border-pink-300 px-2 py-0.5 rounded text-[9px] font-bold text-pink-500 shadow z-20 transform -rotate-12 select-none">
+                        Doa Kaza 🐄🤍
+                    </div>
+                </div>
+
+                <!-- Star Wish Modal Output -->
+                <div id="star-output-box" class="hidden mt-8 p-5 bg-white rounded-2xl border-2 border-pink-300 shadow-md relative transition-all duration-500">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 text-4xl">🌟</div>
+                    <p id="star-wish-text" class="text-pink-800 font-semibold text-base mt-2 italic">Klik stoples di atas untuk meramal/membaca doa hari ini...</p>
+                    <span class="text-xs text-pink-400 block mt-3">(Kamu bisa menekan stoples berkali-kali untuk doa yang lain!)</span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- BAGIAN 5: CATCH THE HEART MINI-GAME -->
+        <section class="min-h-screen flex flex-col items-center justify-center text-center w-full mb-16 reveal">
+            <div class="glass-panel p-5 md:p-8 rounded-3xl w-full relative">
+                <h2 class="font-pacifico text-3xl text-pink-500 mb-2">Game Tangkap Cinta 🐄💓</h2>
+                <p class="text-xs md:text-sm text-pink-600 mb-4">Yuk bantu Sapi menangkap tumpukan hati dan bunga jatuh untuk membuka hadiah rahasia dari Kaza!</p>
+
+                <!-- Game Stats -->
+                <div class="flex justify-between items-center mb-3 bg-pink-50 p-3 rounded-xl border border-pink-100">
+                    <div class="text-xs md:text-sm font-bold text-pink-700">Skor: <span id="game-score">0</span> / 10</div>
+                    <div class="text-xs md:text-sm font-bold text-pink-500"><span id="game-status-text">Ayo Mulai! 👇</span></div>
+                </div>
+
+                <!-- Game Area Canvas (Touch and Click friendly) -->
+                <div id="game-container" class="relative w-full h-[320px] bg-gradient-to-b from-pink-50 to-pink-100 rounded-2xl overflow-hidden border-2 border-pink-200 cursor-crosshair">
+                    <!-- Cow Basket controlled by mouse/touch -->
+                    <div id="game-cow" class="absolute bottom-2 left-1/2 -translate-x-1/2 text-5xl select-none transition-all duration-75">
+                        🐄
+                    </div>
+
+                    <!-- Welcome Screen Inside Game -->
+                    <div id="game-start-overlay" class="absolute inset-0 bg-white/80 flex flex-col items-center justify-center p-4">
+                        <span class="text-5xl mb-2 wiggle">🌾🐄</span>
+                        <p class="text-sm font-bold text-pink-700 mb-3 text-center">Gunakan tombol kiri/kanan di bawah atau geser mouse/jarimu di dalam kotak untuk menggerakkan Sapi!</p>
+                        <button onclick="startGame()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow text-sm transition-transform hover:scale-105 active:scale-95">
+                            Mulai Game 🎮
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Touch Control Buttons -->
+                <div class="flex gap-4 justify-center mt-3">
+                    <button id="btn-move-left" class="bg-pink-300 hover:bg-pink-400 text-white font-bold py-3 px-8 rounded-2xl shadow active:scale-95 text-lg"><i class="fa-solid fa-arrow-left"></i> Kiri</button>
+                    <button id="btn-move-right" class="bg-pink-300 hover:bg-pink-400 text-white font-bold py-3 px-8 rounded-2xl shadow active:scale-95 text-lg">Kanan <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Secret Locked Box Unlocked by Game -->
+                <div id="secret-game-gift" class="hidden mt-6 p-6 bg-gradient-to-r from-pink-400 to-rose-400 text-white rounded-2xl shadow-lg relative overflow-hidden transition-all duration-500">
+                    <div class="absolute top-0 right-0 text-7xl opacity-10 font-bold select-none pointer-events-none">✨</div>
+                    <h3 class="font-pacifico text-xl mb-2">🎁 Sapi Berhasil Menang!</h3>
+                    <p class="text-sm font-medium">Kaza harap senyuman manis Sapi terbit hari ini karena membaca semua ini:</p>
+                    <p class="mt-3 bg-white/20 p-4 rounded-xl text-xs md:text-sm leading-relaxed italic text-justify">
+                        "Terima kasih ya cantik sudah menyelesaikan game kecil ini. Semoga kamu suka ya sama hadiah sederhana dari Kaza ini. Kaza selalu di sini, mendoakan Sapi dari kejauhan, merayakanmu di setiap detik waktu. Sapi adalah Semestaku selamanya."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- BAGIAN 6: PENUTUP (INTERACTIVE DECISION ENGINE) -->
+        <section id="interactive-proposal-section" class="min-h-screen flex flex-col items-center justify-center text-center w-full mb-16 reveal">
+            <div id="proposal-card" class="glass-panel p-6 md:p-8 rounded-3xl w-full relative transition-all duration-500 overflow-hidden shadow-2xl border-2 border-pink-300">
+                
+                <!-- STEP 1: INITIAL PROPOSAL QUESTION -->
+                <div id="step-proposal" class="space-y-6">
+                    <span class="text-7xl heartbeat inline-block">💖💍🐄</span>
+                    <h2 class="font-pacifico text-3xl md:text-4xl text-pink-600 drop-shadow">MAU BALIKAN ENGGA SAYANG?</h2>
+                    <p class="text-sm text-pink-700 max-w-md mx-auto leading-relaxed">
+                        Kaza menanyakan ini dari lubuk hati terdalam... Apapun pilihan Sapi, Kaza akan sangat menghargainya. Tapi, bolehkah kita kembali bersama merajut masa depan? 🥹
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6">
+                        <button onclick="handleProposalResponse(true)" class="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-4 px-12 rounded-full shadow-lg hover:shadow-pink-300/50 transition-all hover:scale-105 active:scale-95 text-lg flex items-center gap-2">
+                            <span>Mau 💖</span>
+                        </button>
+                        <button id="btn-no-proposal" onclick="handleProposalResponse(false)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3.5 px-8 rounded-full transition-all text-sm flex items-center gap-1">
+                            <span>Tidak Mau 🥺</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 2A: ACCEPTS PROPOSAL (MAU) -->
+                <div id="step-accepted" class="hidden space-y-6">
+                    <span class="text-7xl animate-bounce inline-block">😭😭😭😭💖🎉</span>
+                    <h2 class="font-pacifico text-3xl text-rose-500">KAZA SENENG BANGETTT!!!</h2>
+                    <div class="w-full bg-pink-50/70 p-5 rounded-2xl border border-pink-200 text-left space-y-3">
+                        <p class="text-sm md:text-base font-semibold text-pink-800 leading-relaxed text-center">
+                            Aaaa Kaza seneng bangettt! Kaza bener-bener bersyukur dan seneng luar biasa! Makasih banyak ya sayang, semestaku, cantikku. Kaza janji bakal berusaha jadi yang terbaik buat kamu dan ngejaga hubungan kita sebaik-baiknya. Kaza bahagiaaa banget hari ini! 💕✨
+                        </p>
+                    </div>
+                    
+                    <!-- Hug question for Accepted path -->
+                    <div class="pt-4 border-t border-pink-100">
+                        <p class="font-caveat text-3xl text-pink-600 mb-4 font-bold">Bolehkah saya minta peluk? 🤗🫂</p>
+                        <button onclick="handleHugResponse(true)" class="bg-gradient-to-r from-pink-400 to-rose-400 text-white font-bold py-3 px-10 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all text-md flex items-center justify-center gap-2 mx-auto">
+                            <span>Boleh Banget! 🤗</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 2B: DECLINES PROPOSAL (TIDAK MAU) -->
+                <div id="step-declined" class="hidden space-y-6">
+                    <span class="text-7xl wiggle inline-block">🌱🤍🕊️</span>
+                    <h2 class="font-pacifico text-3xl text-pink-600">Terima Kasih, Sapi...</h2>
+                    <div class="w-full bg-pink-50/70 p-5 rounded-2xl border border-pink-200 text-left space-y-3">
+                        <p class="text-sm md:text-base font-medium text-pink-800 leading-relaxed text-justify">
+                            Kaza paham... Oke, terima kasih banyak ya cantik, dan Kaza minta maaf kalau selama ini masih banyak kurangnya. Kaza berharap Sapi selalu senang, selalu bahagia, selalu sehat, nggak lupa makan, nggak lupa minum, dan Kaza berharap semoga Sapi nggak nangis-nangis lagi ya, karena Kaza sedih setiap kali tahu kamu nangis. Kaza harap Sapi bisa selalu tersenyum. 😊🤍
+                        </p>
+                    </div>
+
+                    <!-- Hug question for Declined path -->
+                    <div class="pt-4 border-t border-pink-100">
+                        <p class="font-caveat text-3xl text-pink-600 mb-4 font-bold">Untuk terakhir kali, apakah boleh kaza saya minta peluk? 🥺🫂</p>
+                        <div class="flex gap-4 justify-center">
+                            <button onclick="handleHugResponse(false)" class="bg-gradient-to-r from-pink-400 to-rose-400 text-white font-bold py-3 px-10 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all text-md flex items-center justify-center gap-2">
+                                <span>Boleh kok... 🤍</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: VIRTUAL HUG ACTIVATED -->
+                <div id="step-hug" class="hidden space-y-6">
+                    <div class="relative w-44 h-44 mx-auto flex items-center justify-center">
+                        <div class="absolute inset-0 bg-pink-200/50 rounded-full animate-ping"></div>
+                        <span class="text-8xl relative z-10 heartbeat">🫂</span>
+                    </div>
+                    <h2 class="font-pacifico text-3xl text-rose-500">Maaaciw, Peluk Hangat! 🤗💕</h2>
+                    <p class="text-sm md:text-base font-semibold text-pink-700 italic max-w-md mx-auto leading-relaxed">
+                        "Kaza peluk Sapi erat-erat lewat doa dan jarak hari ini... Makasih ya cantik udah luangin waktu buat baca website sederhana ini. Sapi akan selalu jadi Semesta terindah buat Kaza. Apapun itu, Kaza selalu ada di garda terdepan buat kamu."
+                    </p>
+                    <div class="text-xs text-pink-400 font-bold bg-pink-100/50 px-4 py-2 rounded-full inline-block">
+                        Virtual Hug Terkirim dengan Segenap Jiwa 💌
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Soft Note -->
+            <p class="text-[11px] text-pink-400 bg-white/60 border border-pink-100 px-6 py-2.5 rounded-full shadow-sm font-medium mt-12">
+                Dibuat dengan segenap jiwa oleh Kaza untuk Shafira (31 Mei 2026)
+            </p>
+        </section>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* SYSTEM FLOWER & HEART FLYING PARTICLES */
+        const particlesContainer = document.getElementById('particles-container');
+        const particleIcons = ['💖', '🤍', '🐄', '✨', '💕', '🌷', '🌸', '🌹', '🌻', '🌼'];
+
+        function createParticle(x, y = null) {
+            const el = document.createElement('div');
+            el.classList.add('floating-item');
+            el.innerText = particleIcons[Math.floor(Math.random() * particleIcons.length)];
+            
+            const size = Math.random() * 1.6 + 1; // 1rem to 2.6rem
+            el.style.fontSize = `${size}rem`;
+            el.style.left = x !== null ? `${x}px` : `${Math.random() * 100}vw`;
+            
+            if(y !== null) {
+                el.style.bottom = `${window.innerHeight - y}px`;
+            }
+            
+            const duration = Math.random() * 5 + 4; // 4s to 9s
+            el.style.animationDuration = `${duration}s`;
+
+            particlesContainer.appendChild(el);
+            setTimeout(() => { el.remove(); }, duration * 1000);
+        }
+
+        function startFloatingParticles() {
+            // Generate basic slow flow of cows and blossoms
+            setInterval(() => {
+                createParticle(null);
+            }, 750);
+        }
+
+        // Click to spawn stars/hearts effect on Canvas
+        const canvas = document.getElementById('sparkle-canvas');
+        const ctx = canvas.getContext('2d');
+        let sparkles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Sparkle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 18 + 8;
+                this.speedX = Math.random() * 4 - 2;
+                this.speedY = Math.random() * 4 - 4;
+                this.emoji = ['🌸', '💖', '🐄', '✨', '🌷'][Math.floor(Math.random() * 5)];
+                this.opacity = 1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.opacity -= 0.02;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.font = `${this.size}px Arial`;
+                ctx.fillText(this.emoji, this.x, this.y);
+                ctx.restore();
+            }
+        }
+
+        window.addEventListener('click', (e) => {
+            for(let i=0; i<6; i++) {
+                sparkles.push(new Sparkle(e.clientX, e.clientY));
+            }
+        });
+
+        function animateSparkles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            sparkles = sparkles.filter(s => s.opacity > 0);
+            sparkles.forEach(s => {
+                s.update();
+                s.draw();
+            });
+            requestAnimationFrame(animateSparkles);
+        }
+        animateSparkles();
+
+
+        /* ACTIONS */
+        function openGift() {
+            const intro = document.getElementById('intro');
+            const mainContent = document.getElementById('main-content');
+            
+            // Animation for flap unfolding
+            document.getElementById('envelope-flap').style.transform = 'rotateX(180deg)';
+            
+            setTimeout(() => {
+                intro.style.opacity = '0';
+                setTimeout(() => {
+                    intro.style.display = 'none';
+                    mainContent.style.display = 'flex';
+                    void mainContent.offsetWidth; 
+                    mainContent.style.opacity = '1';
+                    
+                    startFloatingParticles();
+                }, 800);
+            }, 600);
+        }
+
+        // Reveal blocks on scroll
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        // Ledakan Love Penutup
+        function spawnLoveBurst() {
+            for(let i=0; i<25; i++) {
+                setTimeout(() => {
+                    const randomX = (window.innerWidth / 2) + (Math.random() * 320 - 160);
+                    createParticle(randomX, 50);
+                }, i * 40);
+            }
+        }
+
+
+        /* INTERACTIVE BOUQUET BUILDER SYSTEM */
+        let bouquet = [];
+        const bouquetWrapping = document.getElementById('bouquet-wrapping');
+        const emptyBouquetMsg = document.getElementById('empty-bouquet-msg');
+        const bouquetPaper = document.getElementById('bouquet-paper');
+        const flowerMessage = document.getElementById('flower-message');
+        const sendBouquetBtn = document.getElementById('send-bouquet-btn');
+
+        function addFlowerToBouquet(emoji, phrase) {
+            if (bouquet.length >= 8) {
+                flowerMessage.innerText = "Buketnya sudah sangat penuh dan cantik, Sapi! 💐";
+                return;
+            }
+            
+            bouquet.push(emoji);
+            flowerMessage.innerHTML = `<span class="text-pink-600 font-bold">${emoji}</span> : ${phrase}`;
+            
+            // Remove empty text message
+            emptyBouquetMsg.style.display = 'none';
+            bouquetPaper.classList.remove('hidden');
+            sendBouquetBtn.classList.remove('hidden');
+
+            // Draw new flower on visual canvas
+            const flEl = document.createElement('span');
+            flEl.className = 'text-4xl transform hover:scale-125 transition-transform duration-300 inline-block animate-bounce';
+            flEl.innerText = emoji;
+            bouquetWrapping.appendChild(flEl);
+        }
+
+        function resetBouquet() {
+            bouquet = [];
+            bouquetWrapping.innerHTML = '';
+            bouquetWrapping.appendChild(emptyBouquetMsg);
+            emptyBouquetMsg.style.display = 'block';
+            bouquetPaper.classList.add('hidden');
+            sendBouquetBtn.classList.add('hidden');
+            flowerMessage.innerText = '';
+        }
+
+        function celebrateBouquet() {
+            flowerMessage.innerHTML = "✨ Buket telah diserahkan dengan penuh cinta untuk Sapi! Semoga Sapi tersenyum hari ini! 🥰";
+            spawnLoveBurst();
+        }
+
+
+        /* STOPLES BINTANG HARAPAN SYSTEM */
+        const starWishes = [
+            "Semoga Sapi selalu dikelilingi kebahagiaan yang melimpah dan tidak berujung. 🌟",
+            "Semoga segala bentuk urusan kuliah, mimpi-mimpi, dan masa depan Sapi dipermudah oleh Tuhan. 🙏",
+            "Semoga senyuman manis Sapi tidak pernah pudar oleh kesulitan apa pun, Sapi itu kuat! 💪🤍",
+            "Kaza selalu berharap Sapi dijauhkan dari hari-hari yang mendung dan orang-orang yang jahat. 🌸",
+            "Doaku semoga Sapi selalu menjadi pribadi yang luar biasa cantik, baik hati, dan selalu rendah hati. 🥰",
+            "Kaza selalu mendoakan agar kita berdua tetap terus bertukar cerita dan bahagia dalam kedekatan ini. 🐄💖",
+            "Semoga di usia ke-19 ini Sapi menjadi lebih dewasa, bahagia, dan dicintai oleh dunia luar biasa. 🎉"
+        ];
+
+        function openStarWish() {
+            const box = document.getElementById('star-output-box');
+            const text = document.getElementById('star-wish-text');
+            box.classList.remove('hidden');
+            
+            // Play neat sound-like visual scale
+            const jar = document.getElementById('wish-jar');
+            jar.classList.add('scale-95');
+            setTimeout(() => jar.classList.remove('scale-95'), 150);
+
+            // Fetch random wish
+            const randomWish = starWishes[Math.floor(Math.random() * starWishes.length)];
+            text.style.opacity = '0';
+            setTimeout(() => {
+                text.innerText = randomWish;
+                text.style.opacity = '1';
+                spawnLoveBurst();
+            }, 200);
+        }
+
+
+        /* CATCH THE HEART MINI-GAME LOGIC */
+        let gameActive = false;
+        let gameScore = 0;
+        let cowX = 50; // percentage
+        let fallingObjects = [];
+        let gameInterval;
+        let spawnInterval;
+        const gameContainer = document.getElementById('game-container');
+        const gameCow = document.getElementById('game-cow');
+        const scoreDisplay = document.getElementById('game-score');
+        const gameStatusText = document.getElementById('game-status-text');
+        const startOverlay = document.getElementById('game-start-overlay');
+        const secretGift = document.getElementById('secret-game-gift');
+
+        // Setup Cow position
+        function updateCowPos() {
+            gameCow.style.left = `${cowX}%`;
+        }
+
+        // Key Controls
+        window.addEventListener('keydown', (e) => {
+            if(!gameActive) return;
+            if(e.key === 'ArrowLeft' && cowX > 5) {
+                cowX -= 8;
+            } else if(e.key === 'ArrowRight' && cowX < 95) {
+                cowX += 8;
+            }
+            updateCowPos();
+        });
+
+        // Touch buttons
+        document.getElementById('btn-move-left').addEventListener('click', () => {
+            if(!gameActive) return;
+            if(cowX > 5) cowX -= 12;
+            updateCowPos();
+        });
+        document.getElementById('btn-move-right').addEventListener('click', () => {
+            if(!gameActive) return;
+            if(cowX < 95) cowX += 12;
+            updateCowPos();
+        });
+
+        // Touch & Mouse Drag on canvas
+        gameContainer.addEventListener('mousemove', (e) => {
+            if(!gameActive) return;
+            const rect = gameContainer.getBoundingClientRect();
+            const relativeX = (e.clientX - rect.left) / rect.width * 100;
+            if(relativeX >= 5 && relativeX <= 95) {
+                cowX = relativeX;
+                updateCowPos();
+            }
+        });
+        gameContainer.addEventListener('touchmove', (e) => {
+            if(!gameActive) return;
+            const rect = gameContainer.getBoundingClientRect();
+            const relativeX = (e.touches[0].clientX - rect.left) / rect.width * 100;
+            if(relativeX >= 5 && relativeX <= 95) {
+                cowX = relativeX;
+                updateCowPos();
+            }
+        });
+
+        function startGame() {
+            // Reset state
+            gameActive = true;
+            gameScore = 0;
+            scoreDisplay.innerText = gameScore;
+            gameStatusText.innerText = "Tangkap Hati & Bunga! 🌸";
+            startOverlay.style.display = 'none';
+            secretGift.classList.add('hidden');
+            fallingObjects.forEach(obj => obj.element.remove());
+            fallingObjects = [];
+            cowX = 50;
+            updateCowPos();
+
+            // Intervals
+            gameInterval = setInterval(updateGame, 30);
+            spawnInterval = setInterval(spawnFallingObject, 1000);
+        }
+
+        function spawnFallingObject() {
+            if(!gameActive) return;
+            const obj = document.createElement('div');
+            obj.className = 'absolute text-2xl select-none pointer-events-none transition-all';
+            
+            // Randomly hearts or flowers
+            const items = ['💖', '🌸', '🌷', '✨', '🌹'];
+            obj.innerText = items[Math.floor(Math.random() * items.length)];
+            
+            const startX = Math.random() * 90 + 5; // 5% to 95%
+            obj.style.left = `${startX}%`;
+            obj.style.top = `-30px`;
+            
+            gameContainer.appendChild(obj);
+
+            fallingObjects.push({
+                element: obj,
+                x: startX,
+                y: -30,
+                speed: Math.random() * 3 + 2
+            });
+        }
+
+        function updateGame() {
+            for(let i = fallingObjects.length - 1; i >= 0; i--) {
+                const obj = fallingObjects[i];
+                obj.y += obj.speed;
+                obj.element.style.top = `${obj.y}px`;
+
+                // Check Collisions
+                if(obj.y > 280 && obj.y < 310) {
+                    const diff = Math.abs(obj.x - cowX);
+                    if(diff < 8) {
+                        // Collided / Caught!
+                        gameScore++;
+                        scoreDisplay.innerText = gameScore;
+                        obj.element.remove();
+                        fallingObjects.splice(i, 1);
+                        
+                        // Play small ripple animation on cow
+                        gameCow.classList.add('scale-125');
+                        setTimeout(() => gameCow.classList.remove('scale-125'), 100);
+
+                        // Check Win
+                        if(gameScore >= 10) {
+                            endGame(true);
+                        }
+                        continue;
+                    }
+                }
+
+                // Check boundary out
+                if(obj.y > 330) {
+                    obj.element.remove();
+                    fallingObjects.splice(i, 1);
+                }
+            }
+        }
+
+        function endGame(won) {
+            gameActive = false;
+            clearInterval(gameInterval);
+            clearInterval(spawnInterval);
+            
+            if(won) {
+                gameStatusText.innerText = "Berhasil Menang! 🎉";
+                secretGift.classList.remove('hidden');
+                spawnLoveBurst();
+            } else {
+                gameStatusText.innerText = "Ulangi Lagi Yuk Sapi!";
+                startOverlay.style.display = 'flex';
+            }
+        }
+
+
+        /* PROPOSAL DECISION SYSTEM */
+        function handleProposalResponse(accepted) {
+            document.getElementById('step-proposal').classList.add('hidden');
+            
+            if (accepted) {
+                document.getElementById('step-accepted').classList.remove('hidden');
+                // Massive celebration effects
+                for (let i = 0; i < 40; i++) {
+                    setTimeout(() => {
+                        createParticle(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+                    }, i * 30);
+                }
+            } else {
+                document.getElementById('step-declined').classList.remove('hidden');
+                // Gentle support burst
+                spawnLoveBurst();
+            }
+        }
+
+        function handleHugResponse(fromAccepted) {
+            if (fromAccepted) {
+                document.getElementById('step-accepted').classList.add('hidden');
+            } else {
+                document.getElementById('step-declined').classList.add('hidden');
+            }
+            
+            document.getElementById('step-hug').classList.remove('hidden');
+            
+            // Continuous gorgeous bursts of hugs and love particles
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const randomX = (window.innerWidth / 2) + (Math.random() * 400 - 200);
+                    createParticle(randomX, 80);
+                }, i * 40);
+            }
+        }
+    </script>
+</body>
+</html>
